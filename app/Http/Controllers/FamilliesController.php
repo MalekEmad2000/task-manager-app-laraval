@@ -49,6 +49,13 @@ class FamilliesController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+
+            'name'=>'required|String',
+
+        ]);
+
        $familly= famillies::create([
 
             'name' => $request->name,
@@ -64,6 +71,13 @@ class FamilliesController extends Controller
     }
     public function storeTask(Request $request)
     {
+
+        $request->validate([
+
+            'title'=>'required|String',
+            'description'=>'required|String',
+            'date'=>'required|after:yesterday'
+        ]);
 
         Tasks::create([
 

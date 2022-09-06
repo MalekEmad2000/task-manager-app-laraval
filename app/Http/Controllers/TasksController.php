@@ -38,6 +38,15 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        $request->validate([
+
+            'title'=>'required|String',
+            'description'=>'required|String',
+            'date'=>'required|after:yesterday'
+        ]);
+
         Tasks::create([
 
             'title' => $request->title,
@@ -86,6 +95,14 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+
+            'title'=>'required|String',
+            'description'=>'required|String',
+            'date'=>'required|after:yesterday'
+        ]);
+
         $task = tasks::find($id);
         $task->update([
             'title' => $request->title,

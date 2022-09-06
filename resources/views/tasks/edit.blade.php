@@ -22,3 +22,14 @@
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
 </form>
+@if($errors->any())
+
+    <div style="margin-top: 5%" class="alert alert-warning" role="alert">
+        @foreach($errors->all() as $error)
+
+            <li>{{$error}}</li>
+
+        @endforeach
+    </div>
+
+@endif

@@ -22,7 +22,6 @@ class FamilliesController extends Controller
 
 
         $user=Auth::user();
-
         $members =  DB::table('users')->where('familly_id','=',Auth::user()->familly_id)->whereNotNull('familly_id')->get();
         return view("famillies.myFamilly",compact('members','user'));
     }
@@ -105,7 +104,7 @@ class FamilliesController extends Controller
         $tasks =  DB::table('tasks')->where('familly_id', Auth::user()->familly_id)->whereNotNull('familly_id')->get();
 
 
-          return view('famillies.show',compact('tasks','familly_id'));
+        return view('famillies.show',compact('tasks','familly_id'));
     }
 
     /**
@@ -154,7 +153,17 @@ class FamilliesController extends Controller
     public function insertMember(Request $request)
     {
 
+        $request->validate([
+
+            'email'=>'required|Email|exists:users,email',
+
+        ]);
+
         $user=DB::table('users')->where('email','=',$request->email);
+
+
+
+
         $user->update([
             'familly_id' => Auth::user()->familly_id,
 

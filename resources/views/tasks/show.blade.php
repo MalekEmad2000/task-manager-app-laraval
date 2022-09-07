@@ -37,8 +37,8 @@
                 <p class="card-title" style="">Title : {{$task->title}}</p>
                 <p class="card-text">description: {{$task->description}}</p>
                 <p class="card-text">due date {{$task->date}}</p>
-                <a href="{{ route('tasks.edit',  $task->id) }}" class="btn btn-info btn-sm">edit</a>
-                <a href="{{ route('tasks.delete',  $task->id) }}" class="btn btn-info btn-sm">delete</a>
+                <a href="{{ route('tasks.edit', [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">edit</a>
+                <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
             </div>
         </div>
     @endforeach

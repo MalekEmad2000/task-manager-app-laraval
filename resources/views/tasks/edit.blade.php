@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-<form action="{{route('tasks.update',$task->id)}}" method="post">
+<form action="{{route('tasks.update',[ $task->id ,'personal'=>$personal])}}" method="post">
     @csrf
     <div class="container">
         <div class="row">

@@ -1315,7 +1315,7 @@ select {
   height: 5rem;
 }
 .min-h-screen {
-  min-height: 100vh;
+    min-height: 120vh;
     background-image: url("https://coolbackgrounds.io/images/backgrounds/index/disco-dba865f1.png");
 }
 .w-5 {

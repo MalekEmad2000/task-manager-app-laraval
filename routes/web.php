@@ -27,9 +27,9 @@ Route::get("/",[\App\Http\Controllers\TasksController::class,'index'])->name('ta
 Route::get("/create",[\App\Http\Controllers\TasksController::class,'create'])->name('tasks.create');
 Route::get("/show",[\App\Http\Controllers\TasksController::class,'show'])->name('tasks.show');
 Route::post("/store",[\App\Http\Controllers\TasksController::class,'store'])->name('tasks.store');
-Route::get("/edit/{id}",[\App\Http\Controllers\TasksController::class,'edit'])->name('tasks.edit');
-Route::post("/update/{id}",[\App\Http\Controllers\TasksController::class,'update'])->name('tasks.update');
-Route::get("/delete/{id}",[\App\Http\Controllers\TasksController::class,'destroy'])->name('tasks.delete');
+Route::get("/edit/{id}/{personal}",[\App\Http\Controllers\TasksController::class,'edit'])->name('tasks.edit');
+Route::post("/update/{id}/{personal}",[\App\Http\Controllers\TasksController::class,'update'])->name('tasks.update');
+Route::get("/delete/{id}/{personal}",[\App\Http\Controllers\TasksController::class,'destroy'])->name('tasks.delete');
 
 
 

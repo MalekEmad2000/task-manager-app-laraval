@@ -79,11 +79,11 @@ class TasksController extends Controller
      * @param  \App\Models\tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$personal)
     {
 
         $task = tasks::findOrFail($id);
-        return view('tasks.edit',compact('task'));
+        return view('tasks.edit',compact('task','personal'));
     }
 
     /**
@@ -93,7 +93,7 @@ class TasksController extends Controller
      * @param  \App\Models\tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$personal)
     {
 
         $request->validate([
@@ -109,7 +109,10 @@ class TasksController extends Controller
             'description' => $request->description,
             'date' => $request->date
         ]);
+        if($personal ==1)
         return redirect()->route('tasks.show');
+        else
+            return redirect()->route('famillies.show');
     }
 
     /**
@@ -118,10 +121,13 @@ class TasksController extends Controller
      * @param  \App\Models\tasks  $tasks
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$personal)
     {
         $task= Tasks::findOrFail($id);
         $task->delete();
+        if($personal==1)
         return redirect()->route('tasks.show');
+        else
+            return redirect()->route('famillies.show');
     }
 }

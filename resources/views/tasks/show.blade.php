@@ -15,7 +15,7 @@
 
 
 
-    @if($tasks->isEmpty())
+    @if($tasks->isEmpty() and $tasks1->isEmpty() and $tasks2->isEmpty())
         <div class="alert alert-light" role="alert" style="width: 50%; margin-left: auto; margin-right:auto; margin-top: 5%">
             It appears you have no tasks yet click here to create a new task</p>
             <a href="{{route('tasks.create')}}" style="background-color: white" class="btn btn-info btn-sm">add task</a>
@@ -32,11 +32,13 @@
             </div>
 
         </div>
+
 <div style="   width: 33%;height: available ;float:left; /* add this */  ">
-    <h2>Todays tasks</h2>
+    <h2 style="margin-top: 20px;margin-left: 3%;font-family: cursive">  Todays tasks </h2>
     @foreach($tasks as $task)
 
-        @if(Carbon\Carbon::now()->toDateString() == ($task->date)  )
+
+
         <div class="card" style="width: auto;float:left; display: flex;	flex-direction: column;	 border-color: black; border-radius: 7px; box-shadow: 0 2px 5px #ccc;  padding: 10px; width: 240px; margin: 16px;  ">
             <div class="card-body">
                 <p class="card-title" style="">Title : {{$task->title}}</p>
@@ -46,17 +48,22 @@
                 <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
             </div>
         </div>
-        @endif
+
     @endforeach
+    @if($tasks->isEmpty())
+
+        <div style="margin-top: 30%;width: 75%;margin-left: auto; margin-right: auto;" class="alert alert-danger" role="alert">
+            it appears u have no tasks today!!
+        </div>
+    @endif
 
 </div>
 
 <div style="width: 33%;   float: left; /* add this */">
 
-    <h2>Up coming tasks</h2>
-    @foreach($tasks as $task)
+    <h2 style="margin-top: 20px; font-family: cursive">Up coming tasks</h2>
+    @foreach($tasks1 as $task)
 
-        @if(Carbon\Carbon::now()->toDateString() < ($task->date)  )
             <div class="card" style="width: auto;float:left; display: flex;	flex-direction: column;	 border-color: black; border-radius: 7px; box-shadow: 0 2px 5px #ccc;  padding: 10px; width: 240px; margin: 16px;  ">
                 <div class="card-body">
                     <p class="card-title" style="">Title : {{$task->title}}</p>
@@ -66,17 +73,23 @@
                     <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
                 </div>
             </div>
-        @endif
-    @endforeach
 
+    @endforeach
+    @if($tasks1->isEmpty())
+
+        <div style="margin-top: 30%;width: 75%;margin-left: auto; margin-right: auto;" class="alert alert-info" role="alert">
+            it appears u have no ucoming tasks!!
+        </div>
+    @endif
 
 </div>
-        <div style="width: 33%;  float: left; /* add this */">
+        <div style="width: 33%;height: max-content  ;float: left; /* add this */">
+<article style="">
+            <h2 style="margin-top: 20px;font-family: cursive;">overdue tasks</h2>
+</article>
+            @foreach($tasks2 as $task)
 
-            <h2>overdue tasks</h2>
-            @foreach($tasks as $task)
 
-                @if(Carbon\Carbon::now()->toDateString() > ($task->date)  )
                     <div class="card" style="width: auto;float:left; display: flex;	flex-direction: column;	 border-color: black; border-radius: 7px; box-shadow: 0 2px 5px #ccc;  padding: 10px; width: 240px; margin: 16px;  ">
                         <div class="card-body">
                             <p class="card-title" style="">Title : {{$task->title}}</p>
@@ -86,16 +99,16 @@
                             <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
                         </div>
                     </div>
-                @endif
-            @endforeach
 
+            @endforeach
+@if($tasks2->isEmpty())
+
+                <div style="margin-top: 30%;width: 75%;margin-left: auto; margin-right: auto;" class="alert alert-info" role="alert">
+                    it appears u have no over due tasks!!
+                </div>
+    @endif
 
         </div>
-
-
-
-
-
 
 
     @endif

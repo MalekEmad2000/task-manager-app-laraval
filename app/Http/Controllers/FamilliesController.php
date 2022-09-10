@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\famillies;
 use App\Models\tasks;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -103,10 +104,12 @@ class FamilliesController extends Controller
     public function show()
     {
         $familly_id=Auth::user()->familly_id;
-        $tasks =  DB::table('tasks')->where('familly_id', Auth::user()->familly_id)->whereNotNull('familly_id')->get();
+        $tasks =  DB::table('tasks')->where('familly_id', Auth::user()->familly_id)->where('date','=',Carbon::now()->toDateString())->whereNotNull('familly_id')->get();
+        $tasks1 =  DB::table('tasks')->where('familly_id', Auth::user()->familly_id)->where('date','>',Carbon::now()->toDateString())->whereNotNull('familly_id')->get();
+        $tasks2 =  DB::table('tasks')->where('familly_id', Auth::user()->familly_id)->where('date','<',Carbon::now()->toDateString())->whereNotNull('familly_id')->get();
 
 
-        return view('famillies.show',compact('tasks','familly_id'));
+        return view('famillies.show',compact('tasks','familly_id','tasks1','tasks2'));
     }
 
     /**

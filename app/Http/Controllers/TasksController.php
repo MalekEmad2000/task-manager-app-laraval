@@ -7,7 +7,7 @@ use App\Models\tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class TasksController extends Controller
 {
     /**
@@ -69,8 +69,10 @@ class TasksController extends Controller
     {
 
         $name=DB::table('users')->where('id',Auth::user()->id)->first();
-        $tasks =  DB::table('tasks')->where('user-id', Auth::user()->id)->whereNull('familly_id')->get();
-        return view('tasks.show',compact('tasks','name'));
+        $tasks =  DB::table('tasks')->where('user-id', Auth::user()->id)->where('date','=',Carbon::now()->toDateString())->whereNull('familly_id')->get();
+        $tasks1 =  DB::table('tasks')->where('user-id', Auth::user()->id)->where('date','>',Carbon::now()->toDateString())->whereNull('familly_id')->get();
+        $tasks2 =  DB::table('tasks')->where('user-id', Auth::user()->id)->where('date','<',Carbon::now()->toDateString())->whereNull('familly_id')->get();
+        return view('tasks.show',compact('tasks','name','tasks1','tasks2'));
     }
 
     /**

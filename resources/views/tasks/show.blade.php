@@ -24,14 +24,19 @@
 
     @else
         <div class="card" style="background-image:  width:100%;background-color: #fcfefe">
-            <div class="card-body">
-                <h5 style="display: inline" class="card-title">My Tasks</h5>
-                <a href="{{route('tasks.create')}}" style="background-color: white;margin-left: 70%" class="btn btn-info btn-sm">add task</a>
+            <div style="" class="card-body">
+                <h5 style="display: inline; margin-right: 20%" class="card-title" >My Tasks</h5>
+                <a href="{{route('tasks.create')}}" style="background-color: white;margin-right: 50%" class="btn btn-info btn-sm">add task</a>
+
+
             </div>
 
         </div>
-
+<div style="   width: 33%;height: available ;float:left; /* add this */  ">
+    <h2>Todays tasks</h2>
     @foreach($tasks as $task)
+
+        @if(Carbon\Carbon::now()->toDateString() == ($task->date)  )
         <div class="card" style="width: auto;float:left; display: flex;	flex-direction: column;	 border-color: black; border-radius: 7px; box-shadow: 0 2px 5px #ccc;  padding: 10px; width: 240px; margin: 16px;  ">
             <div class="card-body">
                 <p class="card-title" style="">Title : {{$task->title}}</p>
@@ -41,10 +46,62 @@
                 <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
             </div>
         </div>
+        @endif
     @endforeach
+
+</div>
+
+<div style="width: 33%;   float: left; /* add this */">
+
+    <h2>Up coming tasks</h2>
+    @foreach($tasks as $task)
+
+        @if(Carbon\Carbon::now()->toDateString() < ($task->date)  )
+            <div class="card" style="width: auto;float:left; display: flex;	flex-direction: column;	 border-color: black; border-radius: 7px; box-shadow: 0 2px 5px #ccc;  padding: 10px; width: 240px; margin: 16px;  ">
+                <div class="card-body">
+                    <p class="card-title" style="">Title : {{$task->title}}</p>
+                    <p class="card-text">description: {{$task->description}}</p>
+                    <p class="card-text">due date {{$task->date}}</p>
+                    <a href="{{ route('tasks.edit', [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">edit</a>
+                    <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
+                </div>
+            </div>
+        @endif
+    @endforeach
+
+
+</div>
+        <div style="width: 33%;  float: left; /* add this */">
+
+            <h2>overdue tasks</h2>
+            @foreach($tasks as $task)
+
+                @if(Carbon\Carbon::now()->toDateString() > ($task->date)  )
+                    <div class="card" style="width: auto;float:left; display: flex;	flex-direction: column;	 border-color: black; border-radius: 7px; box-shadow: 0 2px 5px #ccc;  padding: 10px; width: 240px; margin: 16px;  ">
+                        <div class="card-body">
+                            <p class="card-title" style="">Title : {{$task->title}}</p>
+                            <p class="card-text">description: {{$task->description}}</p>
+                            <p class="card-text">due date {{$task->date}}</p>
+                            <a href="{{ route('tasks.edit', [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">edit</a>
+                            <a href="{{ route('tasks.delete',  [ $task->id ,'personal'=>1]) }}" class="btn btn-info btn-sm">delete</a>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+
+
+        </div>
+
+
+
+
+
+
+
     @endif
+
     <footer>
-        <p>Copyright ⓒ </p>
+        <p>Copyright ⓒ2022 </p>
     </footer>
 </x-app-layout>
 

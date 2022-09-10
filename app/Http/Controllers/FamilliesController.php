@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Session;
+use Redirect;
 
 
 class FamilliesController extends Controller
@@ -159,8 +161,8 @@ class FamilliesController extends Controller
 
         ]);
 
-        $user=DB::table('users')->where('email','=',$request->email);
 
+        $user=DB::table('users')->where('email','=',$request->email);
 
 
 
@@ -168,6 +170,7 @@ class FamilliesController extends Controller
             'familly_id' => Auth::user()->familly_id,
 
         ]);
+
         return redirect()->route('famillies.index');
     }
     public function   kick($id){
